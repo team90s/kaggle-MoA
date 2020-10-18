@@ -11,6 +11,12 @@
 ## Zenhubについて
 - 基本的に下記で作成するISSUEは[Zenhubのカンバン](https://github.com/team90s/kaggle-MoA/pulls#zenhub)で進捗共有します
     - いいかんじに自分の作ったISSUEを動かしていきましょ！
+    - Zenhubがprivate repogitoryに対しては有料なので、Github Projectsに一旦移行する
+
+## Github Projectsについて
+- 基本的に下記で作成するISSUEは[Github Projects](https://github.com/team90s/kaggle-MoA/projects/1)で進捗共有します
+    - いいかんじに自分の作ったISSUEを動かしていきましょ！
+    - ISSUEを作ったら、右側のサイドバーのProjectsからMoAを選択して、該当のカテゴリを選択しましょう！
 
 ## Discussionを読もうと思うんだ、俺は！ の時
 1. ISSUEを作成する（先に何を読むか共有することで、同じDiscussionを読むことを避けるため）
