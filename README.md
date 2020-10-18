@@ -8,9 +8,9 @@
 # ざっくりとした運用ルール的なもの
 厳密なものではないのでご安心を！
 
-## Zenhubについて
-- 基本的に下記で作成するISSUEは[Zenhubのカンバン](https://github.com/team90s/kaggle-MoA/pulls#zenhub)で進捗共有します
-    - いいかんじに自分の作ったISSUEを動かしていきましょ！
+## ~~Zenhubについて~~
+- ~~基本的に下記で作成するISSUEは[Zenhubのカンバン](https://github.com/team90s/kaggle-MoA/pulls#zenhub)で進捗共有します~~
+    - ~~いいかんじに自分の作ったISSUEを動かしていきましょ！~~
     - Zenhubがprivate repogitoryに対しては有料なので、Github Projectsに一旦移行する
 
 ## Github Projectsについて
