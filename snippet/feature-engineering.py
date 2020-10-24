@@ -227,7 +227,7 @@ def feature_engineering(train_features, test_features):
     # 正規化
     if config.scaler == 'Rankgauss':
         print('do Rankgauss')
-        df = rankgauss(df, num_df.columns.tolist())
+        num_df = rankgauss(num_df, num_df.columns.tolist())
 
     elif config.scaler == 'Standard':
         print('do Standard')
