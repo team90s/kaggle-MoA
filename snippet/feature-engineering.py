@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler, OneHotEncoder, QuantileTransformer
 from sklearn.feature_selection import VarianceThreshold
-from sklearn.decomposition import PCA, TruncatedSVD
+from sklearn.decomposition import PCA, TruncatedSVD, FactorAnalysis
 from sklearn.cluster import KMeans
 
 
@@ -47,8 +47,8 @@ config = Config()
 def data_filter(train, test):
     """cp_type = ctl_vehicleのデータは除外（unknownデータなので）
     """
-    train = train[train['cp_type']!='ctl_vehicle'].reset_index(drop=True)
-    test = test[test['cp_type']!='ctl_vehicle'].reset_index(drop=True)
+    train = train[train['cp_type'] != 'ctl_vehicle'].reset_index(drop=True)
+    test = test[test['cp_type'] != 'ctl_vehicle'].reset_index(drop=True)
     train = train.drop('cp_type', axis=1)
     test = test.drop('cp_type', axis=1)
     return train, test
@@ -67,13 +67,13 @@ def one_hot_encoder(df, cols):
     return df
 
 
-def kmeans(df, n_cluster):
+def kmeans(df, n_cluster, seed=config.seed):
     """k-meansで教師なし学習（クラスタ分類）
     """
     km = KMeans(
             n_clusters=n_cluster,
             init='k-means++',
-            random_state=SEED
+            random_state=seed
         )
     y_km = km.fit(df)
 
@@ -168,6 +168,9 @@ def feature_engineering(train_features, test_features):
 
     # カテゴリカラム
     cat_columns = ['cp_time', 'cp_dose']
+
+    train = train_features.copy()
+    test = test_features.copy()
 
     # filter
     if config.do_filter:
