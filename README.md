@@ -18,16 +18,14 @@
     - いいかんじに自分の作ったISSUEを動かしていきましょ！
     - ISSUEを作ったら、右側のサイドバーのProjectsからMoAを選択して、該当のカテゴリを選択しましょう！
 
-## Discussionを読もうと思うんだ、俺は！ の時
+## Discussionを読む時
 1. ISSUEを作成する（先に何を読むか共有することで、同じDiscussionを読むことを避けるため）
     - 読もうと思っているDiscussionのリンクは記載する
     - この時、ISSUEに `discussion` Labelをつけるとあとから探しやすいから便利かも
     - 自分をassignしてね
 2. 読み終わったら、内容をISSUE（DescでもCommentでもOK）にまとめる
-3. 最後に、[Discussionの共有ISSUE](https://github.com/team90s/kaggle-MoA/issues/7)にぶらさげて、今回作成したISSUEはcloseする
-    - ぶらさげるコメントの内容はおまかせですが、最低限元ISSUEのリンクは貼っていきましょう！
 
-## 実験したいんだ、俺は！ の時
+## 実験する時
 1. ISSUEを作成する（カンバン運用のためですが、基本的に個人のやりたいことメモみたいな感じで使うのが良いと思います）
     - どんな実験をするのかざっくり書きましょう
     - この時、ISSUEに `experiment` Labelをつけるとあとから探しやすいから便利かも
@@ -36,14 +34,14 @@
 
 ※ここで良い感じのモデルができたら↓を参考にSubっていきましょう！
 
-## Subしたいんだぞ、俺は！ の時
+## Subしたいの時
 1. slackで「subするぜ〜」と一声かける
-2. subが終わったら、[Submissionの共有ISSUE](https://github.com/team90s/kaggle-MoA/issues/6)のコメントにて、どんな内容でSubしたかを共有する
-    - 「実験したいんだ、俺は！」で実験ISSUEを作っていた場合、そのリンクも貼っておくと良いかもです
+2. subが終わったら、ISSUEを作成し、どんな内容でSubしたかを共有する
+    - 上記の実験でISSUEを作っていた場合、そのリンクも貼っておくと良いかもです
 3. 最後に、[ここ](https://github.com/team90s/kaggle-MoA/issues/6#issue-696270623)のsub履歴テーブルにindexを作る
 
-## とりあえず何かするんだ、俺は！ の時（論文とかドメイン知識文献読むとか）
-1. ISSUEを作成する（カンバン運用のため）
+## とりあえず何かする時の時（論文とかドメイン知識文献読むとか）
+1. ISSUEを作成する
     - どんなことをするのかざっくり書きましょう
     - この時、ISSUEに `documentation` Labelをつけるとあとから探しやすいから便利かも
     - 自分をassignしてね
