@@ -1,7 +1,7 @@
 ---
 name: submission
 about: submission
-title: 'submissionのタイトル'
+title: '【submission】ここにタイトルを記載'
 labels: 'submission'
 assignees: ''
 

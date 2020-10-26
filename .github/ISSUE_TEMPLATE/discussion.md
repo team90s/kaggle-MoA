@@ -1,7 +1,7 @@
 ---
 name: discussion
 about: discussion
-title: 'discussionのタイトル'
+title: '【discussion】ここにタイトルを記載'
 labels: 'discussion'
 assignees: ''
 
