@@ -11,6 +11,11 @@ class Config:
     is_kaggle = False
     is_pretrain = False
 
+    # post prosessing
+    is_sub_clipping = False
+    is_sub_rounding = False
+    is_sub_adjusting_imbalanced_targets = False
+
     # features
     do_variancethreshold = False
     do_kmeans = False
@@ -28,11 +33,11 @@ class Config:
     n_gene_kmeans_cluster = 30
     n_cell_kmeans_cluster = 5
     n_variance_threshold = 0.7
-    scaler = 'Rankgauss'  # Standard, Robust, MinMax
+    scaler = 'Rankgauss'  # Standard, Robust, MinMax, Rankgauss, None
 
     # HyperParameters
     epochs = 80
-    seed_avg = [0, 101, 202, 303, 404, 999]
+    seed_avg = [0, 101, 202, 303, 404, 505]
     nfold = 7
     verbose = 0
     lr = 1e-3
@@ -76,7 +81,6 @@ def kmeans(df, n_cluster, seed=config.seed):
             random_state=seed
         )
     y_km = km.fit(df)
-
     return y_km.labels_
 
 
@@ -146,16 +150,24 @@ def variance_threshold(df, n):
     return df
 
 
-def rankgauss(df, cols, seed=config.seed):
+def rankgauss(df, cols, train_len, seed=config.seed):
     """RankGauss
     """
+    _train = df.iloc[:train_len, :]
+    _test = df.iloc[train_len:, :]
+
     for col in cols:
         transformer = QuantileTransformer(n_quantiles=100, random_state=seed, output_distribution="normal")
-        vec_len = len(df[col].values)
-        raw_vec = df[col].values.reshape(vec_len, 1)
+        vec_len = len(_train[col].values)
+        vec_len_test = len(_test[col].values)
+        raw_vec = _train[col].values.reshape(vec_len, 1)
         transformer.fit(raw_vec)
-        df[col] = transformer.transform(raw_vec).reshape(1, vec_len)[0]
-    return df
+        _train[col] = transformer.transform(raw_vec).reshape(1, vec_len)[0]
+        _test[col] = transformer.transform(_test[col].values.reshape(vec_len_test, 1)).reshape(1, vec_len_test)[0]
+
+    _df = pd.concat([_train, _test])
+    _df = _df.reset_index(drop=True)
+    return _df
 
 
 def feature_engineering(train_features, test_features):
@@ -227,7 +239,7 @@ def feature_engineering(train_features, test_features):
     # 正規化
     if config.scaler == 'Rankgauss':
         print('do Rankgauss')
-        num_df = rankgauss(num_df, num_df.columns.tolist())
+        num_df = rankgauss(num_df, num_df.columns.tolist(), len(train))
 
     elif config.scaler == 'Standard':
         print('do Standard')
@@ -289,3 +301,25 @@ def main():
     display(train.shape, train.head(), test.shape, test.head(), target.shape, target.head())
     display(train_non_scored.shape, train_non_scored.head(), target_non_scored.shape, target_non_scored.head())
     display(len(target_cols), len(target_cols_non_scored), len(feature_cols))
+
+    # ...
+    # ...
+    # ...
+
+    # ちなみに、post prosessingはこんな感じ（やるかどうかは要検討）
+    if config.is_sub_rounding:
+        # https://github.com/team90s/kaggle-MoA/issues/36
+        print('rounding...')
+        n = 0.0001
+        sub.loc[:, target_cols] = sub[target_cols].where(sub[target_cols] > n, 0)
+
+    if config.is_sub_clipping:
+        # https://www.kaggle.com/c/lish-moa/discussion/191621
+        print('clipping...')
+        sub.loc[:, target_cols] = np.clip(sub[target_cols].values, config.p_min, config.p_max)
+
+    if config.is_sub_adjusting_imbalanced_targets:
+        # https://www.kaggle.com/c/lish-moa/discussion/191135
+        print('adjusting...')
+        sub.loc[:, 'atp-sensitive_potassium_channel_antagonist'] = 0.000012
+        sub.loc[:, 'erbb2_inhibitor'] = 0.000012
