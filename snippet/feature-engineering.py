@@ -33,6 +33,8 @@ class Config:
     n_gene_kmeans_cluster = 30
     n_cell_kmeans_cluster = 5
     n_variance_threshold = 0.7
+    p_min = 0.001
+    p_max = 0.999
     scaler = 'Rankgauss'  # Standard, Robust, MinMax, Rankgauss, None
 
     # HyperParameters
